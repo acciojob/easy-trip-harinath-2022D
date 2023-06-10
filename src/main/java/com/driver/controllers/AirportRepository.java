@@ -15,6 +15,7 @@ public class AirportRepository {
     private Map<Integer,Passenger> passengerMap = new HashMap<>();
     private Map<Integer, List<Integer>> flight_passengers = new HashMap<>();
     public void addAirPort(Airport airport) {
+
         airportMap.put(airport.getAirportName(),airport);
     }
 
