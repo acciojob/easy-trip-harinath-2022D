@@ -7,6 +7,7 @@ import com.driver.model.Passenger;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class AirportService {
@@ -63,7 +64,24 @@ public class AirportService {
     }
 
     public int getNumberOfPeopleOn(Date date, String airportName) {
-        return airportRepository.getNumberOfPeopleOn(date, airportName);
+        Airport airport = airportRepository.getAirport(airportName);
+        List<Flight> flightList = airportRepository.getAllFlights();
+        int count = 0;
+        if(airport != null){
+            City city = airport.getCity();
+            for(Flight flight : flightList){
+                if(date.equals(flight.getFlightDate())){
+                    if(city.equals(flight.getToCity()) || city.equals(flight.getFromCity())){
+                        Integer flightId = flight.getFlightId();
+                        List<Integer> list = airportRepository.getPassengers(flightId);
+                        if(list != null){
+                            count += list.size();
+                        }
+                    }
+                }
+            }
+        }
+        return count;
     }
 
     public int calculateFlightFare(Integer flightId) {

@@ -111,6 +111,12 @@ public class AirportRepository {
         return "FAILURE";
     }
 
+    public List<Flight> getAllFlights() {
+        return new ArrayList<>(flightMap.values());
+    }
+    public List<Integer> getPassengers(Integer flightId) {
+        return flight_passengers.get(flightId);
+    }
     public int countOfBookingsDoneByPassengerAllCombined(Integer passengerId) {
         int count = 0;
         for(Integer id : flight_passengers.keySet()){
@@ -144,5 +150,9 @@ public class AirportRepository {
             }
         }
         return count;
+    }
+
+    public Airport getAirport(String airportName) {
+        return airportMap.get(airportName);
     }
 }
