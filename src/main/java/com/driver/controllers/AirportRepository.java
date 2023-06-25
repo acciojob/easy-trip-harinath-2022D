@@ -100,13 +100,12 @@ public class AirportRepository {
     public String canacelATicket(Integer flightId, Integer passengerId) {
         if(flight_passengers.containsKey(flightId)){
             List<Integer> passlist = flight_passengers.get(flightId);
-            for(int id : passlist){
-                if(id == passengerId){
-                    passlist.remove(id);
-                    flight_passengers.put(flightId,passlist);
-                    return "SUCCESS";
-                }
+            if(passlist.contains(passengerId)) {
+                passlist.remove(passengerId);
+                flight_passengers.put(flightId, passlist);
+                return "SUCCESS";
             }
+
         }
         return "FAILURE";
     }
